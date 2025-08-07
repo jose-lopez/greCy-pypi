@@ -1,6 +1,7 @@
 import typer
 import os
 from grecy.connections import access_to
+from grecy.__version__ import __version__
 
 app = typer.Typer()
 
@@ -20,7 +21,7 @@ def install(model: str):
             exit(0)
 
         # The url for the model
-        https = hf_url + "Jacobo/" + model + "/resolve/main/" + model + "-any-py3-none-any.whl"
+        https = hf_url + "Jacobo/" + model + "/resolve/main/" + model + "-" + __version__ + "-py3-none-any.whl"
 
         # The pip command
         pip_command = "python -m pip install " + https
