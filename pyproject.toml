@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "grecy"
-version = "3.0"
+version = "3.7.5"
 description = "grecy installs six ancient Greek spaCy models that were trained using the Universal Dependency Proiel and Perseus treebanks."
 readme = "README.md"
 requires-python = ">=3.9,<=3.11"
