@@ -1,7 +1,7 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: grecy
-Version: 3.0
-Summary: grecy installs six ancient Greek spaCy models that were trained using the Universal Dependency Proiel and Perseus treebanks.
+Version: 3.7.5
+Summary: grecy installs seven ancient Greek spaCy models that were trained using the Universal Dependency Proiel and Perseus treebanks.
 Author-email: Jacobo Myerston <jmyerston@ucsd.edu>
 License: MIT License
         
@@ -30,10 +30,12 @@ Project-URL: Bug Tracker, https://github.com/jmyerston/greCy/issues
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Requires-Python: <=3.11,>=3.9
+Requires-Python: <3.12,>=3.10.0
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
-Requires-Dist: spacy<=3.8.2,>=3.5
+Requires-Dist: spacy<3.9.0,>=3.5
+Requires-Dist: typer~=0.23.1
+Dynamic: license-file
 
 # greCy
 ## Ancient Greek models for spaCy

@@ -4,6 +4,7 @@ pyproject.toml
 requirements.txt
 grecy/__init__.py
 grecy/__main__.py
+grecy/__version__.py
 grecy/connections.py
 grecy.egg-info/PKG-INFO
 grecy.egg-info/SOURCES.txt
