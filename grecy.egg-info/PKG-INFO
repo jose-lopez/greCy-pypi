@@ -11,7 +11,7 @@ Classifier: Operating System :: OS Independent
 Requires-Python: <3.12,>=3.10.0
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
-Requires-Dist: spacy<3.9.0,>=3.8.2
+Requires-Dist: spacy<3.9.0,>=3.5.3
 Dynamic: license-file
 
 # greCy

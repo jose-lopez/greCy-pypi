@@ -1,6 +1,9 @@
+from platform import release
+
 import typer
 import os
-from grecy.connections import access_to
+from grecy.connections import access_to, get_release
+
 
 app = typer.Typer()
 
@@ -9,8 +12,9 @@ def install(model: str):
 
     models = ["grc_perseus_sm","grc_perseus_lg","grc_perseus_trf","grc_proiel_sm","grc_proiel_lg","grc_proiel_trf", "grc_ner_trf"]
 
-    git_url = "https://github.com/jmyerston/greCy/releases/download/v3.7.5/"
+    git_url = "https://github.com/jmyerston/greCy/releases/download/"
     git_release_url_to_check = "https://github.com/jmyerston/greCy/releases/tag/v3.7.5"
+    git_release = "https://github.com/jmyerston/greCy/releases/latest"
 
     if model in models:
 
@@ -20,9 +24,12 @@ def install(model: str):
             print(f'Please, check the network connection.')
             exit(0)
 
+        latest_release = get_release(git_release)
+
         # The url for the model
         # https = hf_url + "Jacobo/" + model + "/resolve/main/" + model + "-any-py3-none-any.whl"
-        https = git_url + model + "-3.7.5-py3-none-any.whl"
+        https = git_url + "v" + latest_release + "/" + model + "-" + latest_release + "-" + "py3-none-any.whl"
+        # "https://github.com/jmyerston/greCy/releases/download/v3.7.5/grc_ner_trf-3.7.5-py3-none-any.whl"
 
         # The pip command
         pip_command = "python -m pip install " + https
