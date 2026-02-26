@@ -27,9 +27,7 @@ def install(model: str):
         latest_release = get_release(git_release)
 
         # The url for the model
-        # https = hf_url + "Jacobo/" + model + "/resolve/main/" + model + "-any-py3-none-any.whl"
         https = git_url + "v" + latest_release + "/" + model + "-" + latest_release + "-" + "py3-none-any.whl"
-        # "https://github.com/jmyerston/greCy/releases/download/v3.7.5/grc_ner_trf-3.7.5-py3-none-any.whl"
 
         # The pip command
         pip_command = "python -m pip install " + https
