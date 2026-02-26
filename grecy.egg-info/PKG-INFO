@@ -8,11 +8,10 @@ Project-URL: Homepage, https://github.com/jmyerston/greCy
 Project-URL: Bug Tracker, https://github.com/jmyerston/greCy/issues
 Classifier: Programming Language :: Python :: 3
 Classifier: Operating System :: OS Independent
-Requires-Python: <=3.12.12,>=3.9.0
+Requires-Python: <3.12,>=3.10.0
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
-Requires-Dist: spacy<3.9.0,>=3.5
-Requires-Dist: typer~=0.23.1
+Requires-Dist: spacy<3.9.0,>=3.8.2
 Dynamic: license-file
 
 # greCy
