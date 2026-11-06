@@ -1,72 +1,71 @@
-from platform import release
+import subprocess
+import sys
 
 import typer
-import os
-from grecy.connections import access_to, get_release
 
+from grecy.connections import (
+    LATEST_RELEASE_URL,
+    ModelNotFoundError,
+    ReleaseLookupError,
+    find_wheel_url,
+)
+
+MODELS = [
+    "grc_perseus_sm",
+    "grc_perseus_lg",
+    "grc_perseus_trf",
+    "grc_proiel_sm",
+    "grc_proiel_lg",
+    "grc_proiel_trf",
+    "grc_ner_trf",
+]
 
 app = typer.Typer()
 
+
+def _fail(message: str) -> typer.Exit:
+    typer.echo(message, err=True)
+    return typer.Exit(code=1)
+
+
+def _check_model(model: str) -> None:
+    if model not in MODELS:
+        raise _fail(
+            f"Unknown model: {model}\n"
+            f"The options in greCy are: {', '.join(MODELS)}"
+        )
+
+
+def _run_pip(*args: str) -> int:
+    # sys.executable keeps pip in the environment that is running greCy.
+    return subprocess.run([sys.executable, "-m", "pip", *args]).returncode
+
+
 @app.command()
 def install(model: str):
+    _check_model(model)
 
-    models = ["grc_perseus_sm","grc_perseus_lg","grc_perseus_trf","grc_proiel_sm","grc_proiel_lg","grc_proiel_trf", "grc_ner_trf"]
+    try:
+        wheel_url = find_wheel_url(model)
+    except ReleaseLookupError as error:
+        raise _fail(
+            f"Could not look up the greCy releases at {LATEST_RELEASE_URL}: {error}\n"
+            "Please check the network connection."
+        )
+    except ModelNotFoundError:
+        raise _fail(f"No greCy release contains the model {model}.")
 
-    git_url = "https://github.com/jmyerston/greCy/releases/download/"
-    git_release_url_to_check = "https://github.com/jmyerston/greCy/releases/tag/v3.7.5"
-    git_release = "https://github.com/jmyerston/greCy/releases/latest"
-
-    if model in models:
-
-        # Checking the access to Hugging Face
-        if not access_to(git_release_url_to_check):
-            print(f'The access to {git_release_url_to_check} is not possible.')
-            print(f'Please, check the network connection.')
-            exit(0)
-
-        latest_release = get_release(git_release)
-
-        # The url for the model
-        https = git_url + "v" + latest_release + "/" + model + "-" + latest_release + "-" + "py3-none-any.whl"
-
-        # The pip command
-        pip_command = "python -m pip install " + https
-
-        try:
-            os.system(pip_command)
-
-        except Exception as e:
-
-            print(f'There is a problem installing the model: {pip_command}')
-            print(f'Below the related information:')
-            print(f'{str(e)}')
-
-    else:
-        print('\n' + f'Please, check the model required. The options in greCy are:')
-        print([model for model in models])
+    if _run_pip("install", wheel_url) != 0:
+        raise _fail(f"There was a problem installing {model} from {wheel_url}")
 
 
 @app.command()
 def uninstall(model: str):
+    _check_model(model)
 
-    models = ["grc_perseus_sm","grc_perseus_lg","grc_perseus_trf","grc_proiel_sm","grc_proiel_lg","grc_proiel_trf", "grc_ner_trf"]
+    if _run_pip("uninstall", "--yes", model) != 0:
+        raise _fail(f"There was a problem uninstalling {model}")
 
-    if model in models:
-
-        pip_command = "python -m pip uninstall --yes " + model
-
-        try:
-            os.system(pip_command)
-
-        except Exception as e:
-
-            print(f'There is a problem uninstalling: {model}')
-            print(f'Below the related information:')
-            print(f'{str(e)}')
-    else:
-        print('\n' + f'Please, check the model required. The options in greCy are:')
-        print([model for model in models])
 
 if __name__ == "__main__":
-
     app()

@@ -1,13 +1,13 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "grecy"
-version = "3.7.5"
+version = "3.8"
 description = "grecy installs seven ancient Greek spaCy models that were trained using the Universal Dependency Proiel and Perseus treebanks."
 readme = "README.md"
-requires-python = ">=3.10.0,<3.12"
+requires-python = ">=3.10"
 
 authors = [
   { name="Jacobo Myerston", email="jmyerston@ucsd.edu" },

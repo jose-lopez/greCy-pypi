@@ -19,6 +19,7 @@ Once the package is successfully installed, you can proceed to install any of th
 * grc_proiel_lg
 * grc_perseus_trf
 * grc_proiel_trf
+* grc_ner_trf
 
 
 The models can be installed from the terminal with the commands below:
@@ -26,12 +27,12 @@ The models can be installed from the terminal with the commands below:
 ```
 python -m grecy install MODEL
 ```
-where you replace MODEL by any of the model names listed above.  The suffixes after the corpus name _sm, _lg, and _trf indicate the size of the model, which directly depends on the word embeddings used to train the models. The smallest models end in _sm (small) and are the less accurate ones: they are good for testing and building lightweight apps. The _lg and _trf are the large and transformer models which are more accurate. The _lg were trained using floret word vectors, and the _trf models use a special version of BERT that was pretrained with the largest Ancient Greek corpus available in the web. 
+where you replace MODEL by any of the model names listed above. The installer always downloads the most recent version of the model published in the [greCy releases](https://github.com/jmyerston/greCy/releases). The transformer models (_trf) currently need Python 3.13 or earlier; the other models also work on Python 3.14. The suffixes after the corpus name _sm, _lg, and _trf indicate the size of the model, which directly depends on the word embeddings used to train the models. The smallest models end in _sm (small) and are the less accurate ones: they are good for testing and building lightweight apps. The _lg and _trf are the large and transformer models which are more accurate. The _lg were trained using floret word vectors, and the _trf models use a special version of BERT that was pretrained with the largest Ancient Greek corpus available in the web. 
 
 
 ### Loading
 
-As usual, you can load any of the six models with the following Python lines:
+As usual, you can load any of the models with the following Python lines:
 
 ```
 import spacy
